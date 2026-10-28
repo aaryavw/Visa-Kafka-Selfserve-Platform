@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  visa-kafka-platform:
+    build: .
+    container_name: visa_kafka_platform_service
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
